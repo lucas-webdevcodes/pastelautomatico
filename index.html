@@ -1872,3 +1872,31 @@ function verificarSenha(){
   }
 }
 </script>
+<!-- FIREBASE (SITE) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  // CONECTA NO FIREBASE
+  firebase.initializeApp({
+    databaseURL: "https://pastel-coruripe-default-rtdb.firebaseio.com"
+  });
+
+  const db = firebase.database();
+
+  // ESCUTA MUDANÇAS DO ADMIN EM TEMPO REAL
+  db.ref("combos").on("value", (snap) => {
+    const data = snap.val();
+
+    // EXEMPLO: combo X-Tudo
+    const combo = document.getElementById("combo_xtudo");
+
+    if (combo && data && data.combo_xtudo === "off") {
+      combo.style.display = "none";
+    }
+
+    if (combo && data && data.combo_xtudo !== "off") {
+      combo.style.display = "block";
+    }
+  });
+</script>
